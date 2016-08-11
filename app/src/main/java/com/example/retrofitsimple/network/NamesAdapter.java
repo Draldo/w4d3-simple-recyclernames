@@ -6,8 +6,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.retrofitsimple.MainActivity;
@@ -23,6 +25,7 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.ViewHolder> 
 
     private static final String TAG = "NamesAdapterTAG_";
 
+    private ArrayList<String> mNames = new ArrayList<String>();
     private ArrayList<Student> mStudents;
     private Context mContext;
 
@@ -44,6 +47,13 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.ViewHolder> 
 
         TextView textView = holder.textViewName;
         textView.setText(student.getName());
+        mNames.add(student.getName());
+
+        TextView textage = holder.textViewAge;
+        textage.setText("Age: " + Integer.toString(student.getAge()));
+
+        TextView textgrade = holder.textViewGrade;
+        textgrade.setText("Grade: " + Double.toString(student.getGrade()));
 
         ImageView imageView = holder.imageViewName;
         Glide.with(mContext)
@@ -64,13 +74,28 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView textViewName;
+        private TextView textViewAge;
+        private TextView textViewGrade;
         private ImageView imageViewName;
+        private Button loginButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
+            textViewAge = (TextView) itemView.findViewById(R.id.age_textview);
+            textViewGrade = (TextView) itemView.findViewById(R.id.grade_texview);
             textViewName = (TextView) itemView.findViewById(R.id.l_item_txt);
             imageViewName = (ImageView) itemView.findViewById(R.id.l_item_img);
+            loginButton = (Button) itemView.findViewById(R.id.login_btn);
+
+            loginButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int pos = mNames.indexOf(textViewName.getText().toString());
+                    Student student = mStudents.get(pos);
+                    Toast.makeText(mContext, textViewName.getText().toString() + " " + student.getPassword(), Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 }
