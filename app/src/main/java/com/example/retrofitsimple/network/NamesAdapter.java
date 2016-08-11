@@ -1,6 +1,7 @@
 package com.example.retrofitsimple.network;
 
 import android.content.Context;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.retrofitsimple.MainActivity;
+import com.example.retrofitsimple.MyDialogFragment;
 import com.example.retrofitsimple.R;
 import com.example.retrofitsimple.entities.Student;
 
@@ -61,7 +63,7 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.ViewHolder> 
                 .load(student.getImageName())
                 .into(imageView);
 
-        Log.d(TAG, "onBindViewHolder: " + student.getImageName());
+        //Log.d(TAG, "onBindViewHolder: " + student.getImageName());
     }
 
     @Override
@@ -94,6 +96,7 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.ViewHolder> 
                     int pos = mNames.indexOf(textViewName.getText().toString());
                     Student student = mStudents.get(pos);
                     Toast.makeText(mContext, textViewName.getText().toString() + " " + student.getPassword(), Toast.LENGTH_SHORT).show();
+                    DialogFragment newFragment = new MyDialogFragment();
                 }
             });
         }

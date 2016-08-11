@@ -1,6 +1,7 @@
 package com.example.retrofitsimple;
 
 import android.os.StrictMode;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +13,7 @@ import com.example.retrofitsimple.network.RetrofitMagic;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MyDialogFragment.DialogListener{
 
     private RecyclerView mRecyclerView;
 
@@ -29,5 +30,10 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.a_main_recycler);
         mRecyclerView.setAdapter(namesAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+
     }
 }
