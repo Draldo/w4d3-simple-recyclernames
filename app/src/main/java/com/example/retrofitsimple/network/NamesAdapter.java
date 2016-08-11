@@ -95,9 +95,8 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.ViewHolder> 
                 @Override
                 public void onClick(View view) {
                     int pos = mNames.indexOf(textViewName.getText().toString());
-                    Student student = mStudents.get(pos);
                     //Toast.makeText(mContext, textViewName.getText().toString() + " " + student.getPassword(), Toast.LENGTH_SHORT).show();
-                    DialogFragment newFragment = new MyDialogFragment().newInstance(textViewName.getText().toString());
+                    DialogFragment newFragment = new MyDialogFragment().newInstance(textViewName.getText().toString(), pos);
                     newFragment.show(((FragmentActivity) mContext).getSupportFragmentManager(), "Sign in");
                 }
             });
