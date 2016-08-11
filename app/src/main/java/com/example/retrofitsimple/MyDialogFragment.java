@@ -4,9 +4,13 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 
 /**
  * Created by admin on 8/10/2016.
@@ -17,6 +21,14 @@ public class MyDialogFragment extends DialogFragment {
 
     public interface DialogListener {
         public void onDialogPositiveClick(DialogFragment dialog);
+    }
+
+    public static MyDialogFragment newInstance(String name) {
+        MyDialogFragment frag = new MyDialogFragment();
+        Bundle args = new Bundle();
+        args.putString("name", name);
+        frag.setArguments(args);
+        return frag;
     }
 
     DialogListener mListener;
@@ -37,13 +49,16 @@ public class MyDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        String namearg = getArguments().getString("name");
 
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
+        View view = inflater.inflate(R.layout.dialog_fragment, null);
+
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
-        builder.setView(inflater.inflate(R.layout.dialog_fragment, null))
+        builder.setView(view)
                 // Add action buttons
                 .setPositiveButton("Login", new DialogInterface.OnClickListener() {
                     @Override
@@ -56,7 +71,12 @@ public class MyDialogFragment extends DialogFragment {
                         dialog.cancel();
                     }
                 });
+
+        TextView nameview = (TextView) view.findViewById(R.id.username_text);
+        nameview.setText(namearg);
+
         return builder.create();
+
     }
 
 }

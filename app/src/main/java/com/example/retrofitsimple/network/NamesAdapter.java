@@ -2,6 +2,7 @@ package com.example.retrofitsimple.network;
 
 import android.content.Context;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -95,8 +96,9 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.ViewHolder> 
                 public void onClick(View view) {
                     int pos = mNames.indexOf(textViewName.getText().toString());
                     Student student = mStudents.get(pos);
-                    Toast.makeText(mContext, textViewName.getText().toString() + " " + student.getPassword(), Toast.LENGTH_SHORT).show();
-                    DialogFragment newFragment = new MyDialogFragment();
+                    //Toast.makeText(mContext, textViewName.getText().toString() + " " + student.getPassword(), Toast.LENGTH_SHORT).show();
+                    DialogFragment newFragment = new MyDialogFragment().newInstance(textViewName.getText().toString());
+                    newFragment.show(((FragmentActivity) mContext).getSupportFragmentManager(), "Sign in");
                 }
             });
         }
